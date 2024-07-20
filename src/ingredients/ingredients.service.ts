@@ -19,15 +19,18 @@ export class IngredientsService {
     private readonly recipesRepository: Repository<Recipe>,
   ) {}
 
+  // Creates a new ingredient and saves it to the database
   async create(createIngredientDto: CreateIngredientDto): Promise<Ingredient> {
     const ingredient = this.ingredientsRepository.create(createIngredientDto);
     return this.ingredientsRepository.save(ingredient);
   }
 
+  // Retrieves all ingredients from the database
   async findAll(): Promise<Ingredient[]> {
     return this.ingredientsRepository.find();
   }
 
+  // Retrieves a specific ingredient by its ID
   async findOne(id: number): Promise<Ingredient> {
     const ingredient = await this.ingredientsRepository.findOne({
       where: { id },
@@ -38,6 +41,7 @@ export class IngredientsService {
     return ingredient;
   }
 
+  // Updates a specific ingredient by its ID with new data
   async update(
     id: number,
     updateIngredientDto: UpdateIngredientDto,
@@ -47,6 +51,7 @@ export class IngredientsService {
     return this.ingredientsRepository.save(ingredient);
   }
 
+  // Removes a specific ingredient by its ID if it is not used in any recipes
   async remove(id: number): Promise<void> {
     await this.findOne(id);
 
@@ -59,6 +64,7 @@ export class IngredientsService {
       );
     }
 
+    // Deletes the ingredient from the database
     const result = await this.ingredientsRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`Ingredient with ID ${id} not found`);

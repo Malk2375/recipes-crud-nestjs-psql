@@ -142,9 +142,11 @@ This project uses NestJS to create an API for managing recipes and ingredients, 
      ```json
      {
        "name": "Tomato Soup",
-       "type": "dinner",
-       "instructions": "Blend tomatoes and cook",
-       "ingredients": [1]
+       "type": "lunch",
+       "instructions": "Boil tomatoes and blend.",
+       "ingredients": [{
+          "id": 1
+        }]
      }
      ```
 
@@ -162,10 +164,12 @@ This project uses NestJS to create an API for managing recipes and ingredients, 
    - **Body**:
      ```json
      {
-       "name": "Tomato Basil Soup",
-       "type": "dinner",
-       "instructions": "Blend tomatoes with basil and cook",
-       "ingredients": [1, 2]
+       "name": "Tomato Soup",
+       "type": "lunch",
+       "instructions": "Boil tomatoes and blend.",
+       "ingredients": [{
+          "id": 1
+        }]
      }
      ```
 
