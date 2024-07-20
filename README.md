@@ -24,49 +24,167 @@
 
 ## Description
 
+# Recipes API Project
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Introduction
+
+This project uses NestJS to create an API for managing recipes and ingredients, with PostgreSQL as the database. This guide covers the steps from initialization, entity and controller setup, connecting to PostgreSQL, and testing with Postman.
+
+## Prerequisites
+
+- Node.js
+- npm
+- PostgreSQL
 
 ## Installation
 
-```bash
-$ npm install
-```
+### Clone the Repository
 
-## Running the app
+1. Clone the repository to your local machine and navigate into the project directory:
 
-```bash
-# development
-$ npm run start
+   ```bash
+   git clone <https://github.com/Malk2375/recipes-crud-nestjs-psql.git>
+   ```
 
-# watch mode
-$ npm run start:dev
+### Install Dependencies
 
-# production mode
-$ npm run start:prod
-```
+2. Install the project dependencies using npm:
 
-## Test
+   ```bash
+   npm install
+   ```
 
-```bash
-# unit tests
-$ npm run test
+### Database Configuration
 
-# e2e tests
-$ npm run test:e2e
+3. Create a PostgreSQL database and update the database configuration in the project. This can be done by creating an `.env` file or updating the `ormconfig.json` file with your database credentials.
 
-# test coverage
-$ npm run test:cov
-```
+   Example `.env`:
 
-## Support
+   ```env
+   DB_HOST=127.0.0.1
+   DB_PORT=5432
+   DB_USERNAME=postgres
+   DB_PASSWORD=yourpassword
+   DB_DATABASE=databasename
+   ```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Initialize the Project
+
+4. Start the NestJS application:
+
+   ```bash
+   npm run start
+   ```
+
+## Project Structure
+
+### Entities
+
+- **Ingredient**: Represents an ingredient with properties such as `id`, `name`, and `aisle`.
+- **Recipe**: Represents a recipe with properties such as `id`, `name`, `type`, `instructions`, and a many-to-many relationship with ingredients.
+
+### Controllers
+
+- **IngredientsController**: Handles HTTP requests for creating, reading, updating, and deleting ingredients.
+- **RecipesController**: Handles HTTP requests for creating, reading, updating, and deleting recipes.
+
+### Services
+
+- **IngredientsService**: Contains business logic for managing ingredients, including validation to prevent deletion of ingredients referenced in recipes.
+- **RecipesService**: Contains business logic for managing recipes and handles CRUD operations.
+
+## Usage
+
+### Testing with Postman
+
+1. **Create Ingredient**:
+   - **Method**: POST
+   - **URL**: `http://localhost:3000/ingredients`
+   - **Body**: 
+     ```json
+     {
+       "name": "Tomato",
+       "aisle": "Produce"
+     }
+     ```
+
+2. **Get All Ingredients**:
+   - **Method**: GET
+   - **URL**: `http://localhost:3000/ingredients`
+
+3. **Get Ingredient by ID**:
+   - **Method**: GET
+   - **URL**: `http://localhost:3000/ingredients/:id`
+
+4. **Update Ingredient**:
+   - **Method**: PATCH
+   - **URL**: `http://localhost:3000/ingredients/:id`
+   - **Body**:
+     ```json
+     {
+       "name": "Tomato",
+       "aisle": "Canned Goods"
+     }
+     ```
+
+5. **Delete Ingredient**:
+   - **Method**: DELETE
+   - **URL**: `http://localhost:3000/ingredients/:id`
+
+   > Note: The API will return an HTTP 409 status if attempting to delete an ingredient that is referenced in at least one recipe.
+
+6. **Create Recipe**:
+   - **Method**: POST
+   - **URL**: `http://localhost:3000/recipes`
+   - **Body**:
+     ```json
+     {
+       "name": "Tomato Soup",
+       "type": "dinner",
+       "instructions": "Blend tomatoes and cook",
+       "ingredients": [1]
+     }
+     ```
+
+7. **Get All Recipes**:
+   - **Method**: GET
+   - **URL**: `http://localhost:3000/recipes`
+
+8. **Get Recipe by ID**:
+   - **Method**: GET
+   - **URL**: `http://localhost:3000/recipes/:id`
+
+9. **Update Recipe**:
+   - **Method**: PATCH
+   - **URL**: `http://localhost:3000/recipes/:id`
+   - **Body**:
+     ```json
+     {
+       "name": "Tomato Basil Soup",
+       "type": "dinner",
+       "instructions": "Blend tomatoes with basil and cook",
+       "ingredients": [1, 2]
+     }
+     ```
+
+10. **Delete Recipe**:
+    - **Method**: DELETE
+    - **URL**: `http://localhost:3000/recipes/:id`
+
+## Notes
+
+- Ensure that the PostgreSQL server is running and accessible with the provided credentials.
+
+## Conclusion
+
+This guide provides a basic overview of setting up recipes API project. For more detailed information, refer to the project source code comments.
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Abdelmalek DORBANI](https://www.linkedin.com/in/mohamed-abdelmalek-dorbani/)
+- Website - [Portfolio](https://portfolio-malk.vercel.app/)
 
 ## License
 
